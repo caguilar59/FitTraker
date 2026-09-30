@@ -1,0 +1,29 @@
+{
+  "name": "fittraker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caguilar59/FitTraker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/caguilar59/FitTraker/issues"
+  },
+  "homepage": "https://github.com/caguilar59/FitTraker#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongodb": "^7.7.0",
+    "mongoose": "^9.10.3"
+  },
+  "devDependencies": {
+    "sass": "^1.105.1"
+  }
+}
