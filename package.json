@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,11 +21,14 @@
   },
   "homepage": "https://github.com/caguilar59/FitTraker#readme",
   "dependencies": {
+    "axios": "^1.20.0",
+    "dotenv": "^18.0.5",
     "express": "^5.2.1",
     "mongodb": "^7.7.0",
     "mongoose": "^9.10.3"
   },
   "devDependencies": {
+    "nodemon": "^3.1.14",
     "sass": "^1.105.1"
   }
 }
