@@ -22,8 +22,11 @@
   "homepage": "https://github.com/caguilar59/FitTraker#readme",
   "dependencies": {
     "axios": "^1.20.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "dotenv": "^18.0.5",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "mongodb": "^7.7.0",
     "mongoose": "^9.10.3"
   },
