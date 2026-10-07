@@ -1,0 +1,68 @@
+.calendar-container {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.calendar-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.calendar-row > calendar-event {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.calendar-card {
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  box-sizing: border-box;
+}
+.calendar-card h6 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.calendar-card p {
+  font-size: 12px;
+  margin: 8px 0;
+}
+
+.add-event-btn {
+  width: 30px;
+  height: 30px;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@media (max-width: 1000px) {
+  .calendar-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .calendar-row > calendar-event {
+    width: 100%;
+    flex: none;
+  }
+  .calendar-card {
+    width: 100%;
+    min-height: 120px;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */
