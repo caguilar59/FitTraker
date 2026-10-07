@@ -6,14 +6,12 @@ const calendarEvent = {
     },
 
     template: `
-        <div class="col">
-            <div class="calendar-event card p-3 h-100">
-                <h5>{{ currentDate }}</h5>
-                <button class="btn btn-primary btn-sm add-event-btn">
-                    <i class="bi bi-plus-lg"></i>
-                </button>
-                <p class="mt-3 mb-0">{{ blockInfo }}</p>
-            </div>
+        <div class="calendar-card">
+            <h6>{{ currentDate }}</h6>
+            <button class="btn btn-secondary btn-sm add-event-btn">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+            <p>{{ blockInfo }}</p>
         </div>
     `
 };
