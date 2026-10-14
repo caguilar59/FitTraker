@@ -1,16 +1,17 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 
-const User = require("../models/User");
+const User = require("../models/user");
 
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
     try {
-        const { name, email, password, confirmPassword } = req.body;
+        const { name, password, confirmPassword } = req.body;
+        const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
 
         // Check all fields were entered
-        if (!name || !email || !password || !confirmPassword) {
+        if (typeof name !== "string" || !name.trim() || !email || typeof password !== "string" || !password || typeof confirmPassword !== "string" || !confirmPassword) {
             return res.status(400).json({
                 message: "Please fill in all fields"
             });
@@ -57,14 +58,15 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-module.exports = router;
+
 
 router.post("/login", async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const password = req.body.password;
+        const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
 
         // Check both fields were entered
-        if (!email || !password) {
+        if (!email || typeof password !== "string" || !password) {
             return res.status(400).json({
                 message: "Please enter your email and password"
             });
@@ -93,6 +95,9 @@ router.post("/login", async (req, res) => {
             });
         }
 
+        await new Promise((resolve, reject) => req.session.regenerate(error => error ? reject(error) : resolve()));
+        req.session.user = { id: String(user._id), name: user.name, email: user.email };
+        await new Promise((resolve, reject) => req.session.save(error => error ? reject(error) : resolve()));
         res.status(200).json({
             message: "Login successful",
             user: {
@@ -110,3 +115,16 @@ router.post("/login", async (req, res) => {
         });
     }
 });
+router.get('/me', (req, res) => {
+    res.set('Cache-Control', 'no-store');
+    if (!req.session.user) return res.status(401).json({ message: 'Please log in' });
+    res.json({ user: req.session.user });
+});
+router.post('/logout', (req, res) => {
+    req.session.destroy(error => {
+        if (error) return res.status(500).json({ message: 'Unable to log out' });
+        res.clearCookie('fittraker.sid', { path: '/', httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production' });
+        res.json({ message: 'Logged out' });
+    });
+});
+module.exports = router;

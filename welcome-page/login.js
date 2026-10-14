@@ -10,7 +10,7 @@ loginForm.addEventListener("submit", async (event) => {
   };
 
   try {
-    const response = await fetch("http://localhost:3000/api/auth/login", {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -24,7 +24,7 @@ loginForm.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       setTimeout(() => {
-        window.location.href = "../public/index.html";
+        window.location.href = "/public/index.html";
       }, 1000);
     }
 

@@ -10,7 +10,7 @@ form.addEventListener("submit", async (event) => {
   const message = document.getElementById("supportMessage").value;
 
   try {
-    const response = await fetch("http://localhost:3000/api/support", {
+    const response = await fetch("/api/support", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

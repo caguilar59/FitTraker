@@ -9,3 +9,6 @@
 
 The app uses the `Users` and `Support Messages` collections in `FitTracker`.
 Never commit `.env` or share another person's Atlas credentials. Both backends use the same Atlas data; each computer keeps its own private configuration.
+
+## Session authentication
+Open the app at `http://localhost:3000` after starting the backend. Do not use Live Server (port 5500) for authenticated pages. Login sets an HttpOnly session cookie with an eight-hour idle timeout; sessions are stored in Atlas. Logout invalidates the session. For deployment, use HTTPS, set `NODE_ENV=production`, and configure a private random `SESSION_SECRET` of at least 32 bytes. Use a stable secret to keep sessions valid across restarts. Without a configured secret, local development generates a new one at each start, requiring users to log in again.

@@ -1,46 +1,19 @@
-require("dotenv").config();
+require('dotenv').config({ quiet: true });
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo').default;
+const crypto = require('crypto');
+const createApp = require('./app');
 
-const express = require("express");
-const cors = require("cors");
-const supportRoutes = require("./routes/supportRoutes");
-const mongoose = require("mongoose");
-
-const app = express();
-
-app.use(express.json());
-app.use(cors());
-app.use("/api/support", supportRoutes);
-
-// Serve CSS, JavaScript, images, etc. from public
-app.use(express.static("public"));
-
-// Pug setup
-app.set("view engine", "pug");
-app.set("views", "./views");
-
-// Routes
-const exerciseRoutes = require("./routes/exerciseRoutes");
-const authRoutes = require("./routes/authRoutes");
-
-app.use("/api/exercises", exerciseRoutes);
-app.use("/api/auth", authRoutes);
-
-// Homepage
-app.get("/", (req, res) => {
-    res.render("index");
-});
-
-// MongoDB
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log("MongoDB connected");
-    })
-    .catch((error) => {
-        console.error("MongoDB connection error:", error);
-    });
-
-// Start server
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
+async function start() {
+  const production = process.env.NODE_ENV === 'production';
+  if (production && !process.env.SESSION_SECRET) throw new Error('SESSION_SECRET is required in production');
+  await mongoose.connect(process.env.MONGO_URI);
+  const store = MongoStore.create({ client: mongoose.connection.getClient(), dbName: mongoose.connection.name, collectionName: 'sessions' });
+  store.on('error', () => console.error('Session storage error'));
+  const app = createApp({ store, production, secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex') });
+  app.listen(process.env.PORT || 3000, () => {
+    console.log('MongoDB connected');
+    console.log(`Open FitTraker at http://localhost:${process.env.PORT || 3000}`);
+  });
+}
+start().catch(() => { console.error('Unable to start server; check database configuration'); process.exitCode = 1; });
