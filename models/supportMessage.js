@@ -34,7 +34,8 @@ const supportMessageSchema = new mongoose.Schema(
 
 const SupportMessage = mongoose.model(
   "SupportMessage",
-  supportMessageSchema
+  supportMessageSchema,
+  "Support Messages"
 );
 
 module.exports = SupportMessage;
