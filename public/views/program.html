@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FitTraker | Programs</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+	<header>
+		<h1 class="text-center">FitTraker</h1>
+	</header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="../index.html">
+                Dashboard
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div
+                class="collapse navbar-collapse"
+                id="navbarNavDropdown"
+            >
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link active"
+                            href="program.html"
+                            aria-current="page"
+                        >
+                            Program
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Add Exercise
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../welcome-page/contact.html">
+                            Contact Us
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Account
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../welcome-page/contact.html">
+                            Support
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Main Program Content -->
+    <main class="container py-5">
+
+        <!-- Page Heading -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+
+            <div>
+                <h1 class="mb-2">Workout Programs</h1>
+
+                <p class="text-muted mb-0">
+                    Create and organize your weekly workout schedule.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="showProgramForm"
+                class="btn btn-primary mt-3 mt-md-0"
+            >
+                <i class="bi bi-plus-lg"></i>
+                Create Program
+            </button>
+
+        </div>
+
+        <!-- Create Program Form -->
+        <section
+            id="programForm"
+            class="card shadow-sm mb-5"
+            hidden
+        >
+
+            <div class="card-header">
+                <h2 class="h5 mb-0">Create a Workout Program</h2>
+            </div>
+
+            <div class="card-body">
+
+                <p class="text-muted">
+                    Choose your workout day and decide how many supersets
+                    you want to include.
+                </p>
+
+                <form id="createProgramForm">
+
+                    <!-- Workout Date -->
+                    <div class="mb-3">
+
+                        <label for="programDate" class="form-label">
+                            Workout Date
+                        </label>
+
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="programDate"
+                            name="programDate"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Workout Category -->
+                    <div class="mb-3">
+
+                        <label for="programCategory" class="form-label">
+                            Workout Category
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="programCategory"
+                            name="programCategory"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select a workout category
+                            </option>
+
+                            <option value="Push">Push</option>
+                            <option value="Pull">Pull</option>
+                            <option value="Legs">Legs</option>
+                            <option value="Upper Body">Upper Body</option>
+                            <option value="Lower Body">Lower Body</option>
+                            <option value="Full Body">Full Body</option>
+                            <option value="Cardio">Cardio</option>
+                            <option value="Recovery">Recovery</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Number of Supersets -->
+                    <div class="mb-4">
+
+                        <label for="supersetCount" class="form-label">
+                            Number of Supersets
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="supersetCount"
+                            name="supersetCount"
+                            min="0"
+                            max="20"
+                            step="1"
+                            value="0"
+                            required
+                        >
+
+                        <div class="form-text">
+                            Choose between 0 and 20 supersets.
+                        </div>
+
+                    </div>
+
+                    <!-- Form Buttons -->
+                    <div class="d-flex gap-2">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Next
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelProgram"
+                            class="btn btn-outline-secondary"
+                        >
+                            Cancel
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+        <!-- Saved Programs -->
+        <section>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h2 class="h4 mb-0">My Programs</h2>
+
+            </div>
+
+            <div id="programList" class="row g-3">
+
+                <!-- JavaScript displays saved workout programs here. -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Your Program JavaScript -->
+    <script src="../js/program.js"></script>
+
+</body>
+</html>

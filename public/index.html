@@ -12,6 +12,8 @@
 	<header>
 		<h1 class="text-center">FitTraker</h1>
 	</header>
+
+	<!--Navigation Bar-->
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
 			<!-- Dashboard stays on the left -->
@@ -27,7 +29,7 @@
 				<ul class="navbar-nav ms-auto">
 
 					<li class="nav-item">
-						<a class="nav-link active" aria-c    urrent="page" href="index.html">Home</a>
+						<a class="nav-link active"  aria-current="page" href="index.html">Home</a>
 					</li>
 
 					<li class="nav-item">
@@ -63,11 +65,16 @@
 			<div class="calendar-container">
 				<div class="calendar-row">
 					<calendar-event
-						v-for="(day, index) in calendarDays"
-						:key="index"
+						v-for="day in calendarDays"
+						:key="day.dateKey"
 						:current-date="day.currentDate"
-						:block-info="day.blockInfo"
-						:button-block="day.buttonBlock">
+						:block-info="hasProgram(day.dateKey)
+							? 'Program Scheduled'
+							: 'No Program'"
+						:button-block="hasProgram(day.dateKey)
+							? 'Edit Program'
+							: 'Add Program'"
+						:has-program="hasProgram(day.dateKey)">
 					</calendar-event>
 				</div>
 			</div>
@@ -87,9 +94,12 @@
 
 	<!-- Vue Component -->
 	<script src="js/calendar.js"></script>
+<<<<<<< Updated upstream
 
 	<!-- Main Vue App -->
 	<script src="js/scripts.js"></script>
 <script src="js/auth.js"></script>
+=======
+>>>>>>> Stashed changes
 </body>
 </html>
