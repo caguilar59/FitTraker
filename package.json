@@ -30,7 +30,7 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "mongodb": "^7.7.0",
-    "mongoose": "^9.10.3",
+    "mongoose": "^9.11.2",
     "pug": "^3.0.4"
   },
   "devDependencies": {

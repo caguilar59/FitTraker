@@ -16,4 +16,8 @@ async function start() {
     console.log(`Open FitTraker at http://localhost:${process.env.PORT || 3000}`);
   });
 }
-start().catch(() => { console.error('Unable to start server; check database configuration'); process.exitCode = 1; });
+start().catch((error) => {
+  console.error('Unable to start server; check database configuration');
+  console.error('Actual error:', error);
+  process.exitCode = 1;
+});
