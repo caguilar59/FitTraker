@@ -1,4 +1,3 @@
-
 const showProgramForm = document.getElementById('showProgramForm');
 const programForm = document.getElementById('programForm');
 const createProgramForm = document.getElementById('createProgramForm');
@@ -53,6 +52,37 @@ function displayPrograms() {
                         <p class="card-text">
                             Supersets: ${program.supersetCount}
                         </p>
+
+                        <div class="superset-container mt-3">
+                            ${Array.from(
+                                { length: program.supersetCount },
+                                (_, index) => `
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                Superset ${index + 1}
+                                            </h6>
+
+                                            <div class="exercise-list">
+                                                <p class="text-muted mb-0">
+                                                    No exercises added yet.
+                                                </p>
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-primary btn-sm mt-2"
+                                                data-superset-index="${index}"
+                                                data-program-id="${escapeHTML(program.id)}"
+                                            >
+                                                <i class="bi bi-plus-lg"></i>
+                                                Add Exercise
+                                            </button>
+                                        </div>
+                                    </div>
+                                `
+                            ).join('')}
+                        </div>
 
                         <button
                             class="btn btn-outline-danger btn-sm"

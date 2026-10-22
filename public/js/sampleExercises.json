@@ -1,0 +1,82 @@
+[
+    {
+        "category": "Strength",
+        "name": "Bench Press",
+        "muscle": ["Chest", "Triceps", "Shoulders"],
+        "equipment": ["Barbell", "Bench"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Squat",
+        "muscle": ["Quadriceps", "Glutes"],
+        "equipment": ["Barbell", "Squat Rack"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Deadlift",
+        "muscle": ["Back", "Glutes", "Hamstrings"],
+        "equipment": ["Barbell"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Overhead Press",
+        "muscle": ["Shoulders", "Triceps"],
+        "equipment": ["Barbell"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Lat Pulldown",
+        "muscle": ["Back", "Biceps"],
+        "equipment": ["Cable Machine", "Lat Pulldown Bar"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Dumbbell Bicep Curl",
+        "muscle": ["Biceps"],
+        "equipment": ["Dumbbells"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Triceps Pushdown",
+        "muscle": ["Triceps"],
+        "equipment": ["Cable Machine", "Rope Attachment"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Leg Press",
+        "muscle": ["Quadriceps", "Glutes", "Hamstrings"],
+        "equipment": ["Leg Press Machine"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Dumbbell Row",
+        "muscle": ["Back", "Biceps"],
+        "equipment": ["Dumbbell", "Bench"],
+        "imageUrl": "",
+        "videoUrl": ""
+    },
+    {
+        "category": "Strength",
+        "name": "Lateral Raise",
+        "muscle": ["Shoulders"],
+        "equipment": ["Dumbbells"],
+        "imageUrl": "",
+        "videoUrl": ""
+    }
+]
