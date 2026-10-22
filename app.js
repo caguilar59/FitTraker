@@ -27,6 +27,7 @@ function createApp({ store, secret, production = false }) {
     if (req.originalUrl.startsWith('/api/')) return res.status(401).json({ message: 'Please log in' });
     res.redirect('/welcome-page/login.html');
   };
+  app.use('/api/programs', requireLogin, require('./routes/programRoutes'));
   app.use('/api/exercises', requireLogin, require('./routes/exerciseRoutes'));
   app.use('/welcome-page', express.static(path.join(__dirname, 'welcome-page')));
   app.use('/images', express.static(path.join(__dirname, 'images')));

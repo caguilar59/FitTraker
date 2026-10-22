@@ -38,7 +38,7 @@ new Vue({
     },
 
     data: {
-        programs: JSON.parse(localStorage.getItem('programs')) || [],
+        programs: [],
 
         calendarDays: Array.from({ length: 7 }, (_, index) => {
             const date = new Date();
@@ -62,6 +62,19 @@ new Vue({
                 buttonBlock: 'Add Program'
             };
         })
+    },
+
+    async mounted() {
+        try {
+            const response = await fetch('/api/programs', { cache: 'no-store' });
+            if (!response.ok) throw new Error('Unable to load programs');
+            this.programs = (await response.json()).programs;
+        } catch {
+            const message = document.createElement('p');
+            message.setAttribute('role', 'status');
+            message.textContent = 'Unable to load your schedule. Please refresh to try again.';
+            this.$el.appendChild(message);
+        }
     },
 
     methods: {

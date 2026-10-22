@@ -5,8 +5,33 @@ const createProgramForm = document.getElementById('createProgramForm');
 const cancelProgram = document.getElementById('cancelProgram');
 const programList = document.getElementById('programList');
 
-// Load saved programs from the browser
-let programs = JSON.parse(localStorage.getItem('programs')) || [];
+// Programs belong to the signed-in account and are stored by the server.
+let programs = [];
+let busy = false;
+const statusMessage = document.createElement('p');
+statusMessage.setAttribute('role', 'status');
+programList.before(statusMessage);
+async function programRequest(path = '', options = {}) {
+    const response = await fetch('/api/programs' + path, {
+        cache: 'no-store', ...options,
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if (response.status === 401) {
+        window.location.replace('/welcome-page/login.html');
+        throw new Error('Please log in again.');
+    }
+    if (!response.ok) throw new Error('Unable to update programs. Please refresh and try again.');
+    return response.status === 204 ? null : response.json();
+}
+async function loadPrograms() {
+    try {
+        const data = await programRequest();
+        programs = data.programs;
+        displayPrograms();
+        statusMessage.textContent = '';
+
+    } catch (error) { statusMessage.textContent = error.message; }
+}
 
 // Show the create program form
 showProgramForm.addEventListener('click', () => {
@@ -51,7 +76,7 @@ function displayPrograms() {
                         </p>
 
                         <p class="card-text">
-                            Supersets: ${program.supersetCount}
+                            Supersets: ${escapeHTML(program.supersetCount)}
                         </p>
 
                         <button
@@ -79,70 +104,43 @@ function escapeHTML(value) {
     })[character]);
 }
 
-// Handle the workout setup form
-createProgramForm.addEventListener('submit', event => {
+// Save first; only update the page after the server confirms success.
+createProgramForm.addEventListener('submit', async event => {
     event.preventDefault();
-
-    // Get the values from the form
-    const date = document.getElementById('programDate').value;
-    const category = document.getElementById('programCategory').value;
-    const supersetCount = Number(
-        document.getElementById('supersetCount').value
-    );
-
-    // Validate the form
-    if (
-        !date ||
-        !category ||
-        !Number.isInteger(supersetCount) ||
-        supersetCount < 0 ||
-        supersetCount > 20
-    ) {
-        return;
-    }
-
-    // Create a new workout program
-    const workoutSetup = {
-        id: Date.now().toString(),
-        date: date,
-        category: category,
-        supersetCount: supersetCount
-    };
-
-    // Add the program to the array
-    programs.push(workoutSetup);
-
-    // Save programs in browser storage
-    localStorage.setItem('programs', JSON.stringify(programs));
-
-    // Display the saved program in the console
-    console.log('Workout setup:', workoutSetup);
-
-    // Reset and hide the form
-    createProgramForm.reset();
-    programForm.hidden = true;
-
-    // Refresh the program list
-    displayPrograms();
-});
-
-// Handle program deletion
-programList.addEventListener('click', event => {
-    const deleteButton = event.target.closest('[data-delete-index]');
-
-    if (deleteButton) {
-        const index = Number(deleteButton.dataset.deleteIndex);
-
-        // Remove the selected program
-        programs.splice(index, 1);
-
-        // Update browser storage
-        localStorage.setItem('programs', JSON.stringify(programs));
-
-        // Refresh the list
+    if (busy) return;
+    busy = true;
+    const submit = createProgramForm.querySelector('[type="submit"]');
+    submit.disabled = true;
+    try {
+        const { program } = await programRequest('', {
+            method: 'POST', body: JSON.stringify({
+                date: document.getElementById('programDate').value,
+                category: document.getElementById('programCategory').value,
+                supersetCount: Number(document.getElementById('supersetCount').value)
+            })
+        });
+        programs.push(program);
+        createProgramForm.reset();
+        programForm.hidden = true;
+        statusMessage.textContent = 'Program saved to your account.';
         displayPrograms();
-    }
+    } catch (error) { statusMessage.textContent = error.message; }
+    finally { busy = false; submit.disabled = false; }
 });
 
-// Display saved programs when the page loads
-displayPrograms();
+programList.addEventListener('click', async event => {
+    const button = event.target.closest('[data-delete-index]');
+    if (!button || busy) return;
+    const program = programs[Number(button.dataset.deleteIndex)];
+    if (!program || !window.confirm('Delete this program from your account on all devices?')) return;
+    busy = true;
+    button.disabled = true;
+    try {
+        await programRequest('/' + encodeURIComponent(program._id), { method: 'DELETE' });
+        programs = programs.filter(item => item._id !== program._id);
+        statusMessage.textContent = 'Program deleted.';
+        displayPrograms();
+    } catch (error) { statusMessage.textContent = error.message; button.disabled = false; }
+    finally { busy = false; }
+});
+loadPrograms();

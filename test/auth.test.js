@@ -7,6 +7,8 @@ const createApp = require('../app');
 
 test('login cookie, protected pages, session identity, origin checks and logout', async () => {
   const original = User.findOne;
+  const originalFindById = User.findById;
+  User.findById = id => ({ select: async () => id === 'test-id' ? { _id: id, name: 'Session Test', email: 'session-test@example.com' } : null });
   const password = 'test-only-password';
   const hash = await bcrypt.hash(password, 4);
   User.findOne = async ({ email }) => email === 'session-test@example.com' ? { _id: 'test-id', name: 'Session Test', email, password: hash } : null;
@@ -41,6 +43,7 @@ test('login cookie, protected pages, session identity, origin checks and logout'
     assert.equal((await fetch(base + '/public/index.html', { headers, redirect: 'manual' })).status, 302);
   } finally {
     User.findOne = original;
+    User.findById = originalFindById;
     await new Promise(resolve => server.close(resolve));
   }
 });
