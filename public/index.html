@@ -19,9 +19,7 @@
 			<!-- Dashboard stays on the left -->
 			<a class="navbar-brand" href="index.html">Dashboard</a>
 
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-				data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-				aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<!-- Links move to the right -->
@@ -79,10 +77,15 @@
 				</div>
 			</div>
 		</div>
-		<!-- Workout view-->
-		<div class="container my-4" id="program"> 
-			<h2>Workout</h2>
+		<!-- Workout View -->
+		<div class="container my-4" id="program">
+			<h2>Today's Workout</h2>
 
+			<div id="todayWorkout">
+				<p class="text-muted">
+					No workout scheduled for today.
+				</p>
+			</div>
 		</div>
 
 
@@ -102,6 +105,7 @@
 
 	<!-- Main Vue App -->
 	<script src="js/scripts.js"></script>
-<script src="js/auth.js"></script>
+	<script src="js/auth.js"></script>
+	<script src="js/workout.js"></script>
 </body>
 </html>

@@ -93,34 +93,92 @@
         </div>
     </nav>
 
-    <!-- Main Excercise Content -->
-    <main class="container py-5">
+    <main class="container my-4">
+        <h2>Exercise Library</h2>
+        <p>Add and manage your exercises.</p>
 
-        <!-- Page Heading -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <!-- Add Exercise Button -->
+        <button class="btn btn-primary mb-3" id="addExerciseButton">
+            <i class="bi bi-plus-lg"></i> Add Exercise
+        </button>
 
-            <div>
-                <h1 class="mb-2">Exercise Library</h1>
+        <!-- Exercise Form (hidden at first) -->
+        <div id="exerciseFormContainer" class="card p-3 mb-4 d-none">
+            <h4>Add a New Exercise</h4>
 
-                <p class="text-muted mb-0">
-                    Search or create an exercise.
-                </p>
-            </div>
+            <form id="exerciseForm">
+                <div class="mb-3">
+                    <label for="exerciseName" class="form-label">
+                        Exercise Name
+                    </label>
+                    <input type="text" id="exerciseName"
+                        class="form-control" required>
+                </div>
 
-            <button
-                type="button"
-                id=""
-                class="btn btn-primary mt-3 mt-md-0"
-            >
-                <i class="bi bi-plus-lg"></i>
-                Add Exercise
-            </button>
+                <div class="mb-3">
+                    <label for="exerciseCategory" class="form-label">
+                        Category
+                    </label>
+                    <select id="exerciseCategory"
+                        class="form-select" required>
+                        <option value="">Choose a category</option>
+                        <option value="Strength">Strength</option>
+                        <option value="Cardio">Cardio</option>
+                        <option value="Flexibility">Flexibility</option>
+                    </select>
+                </div>
 
+                <div class="mb-3">
+                    <label for="muscleGroup" class="form-label">
+                        Muscles (separate with commas)
+                    </label>
+                    <input type="text" id="muscleGroup"
+                        class="form-control"
+                        placeholder="Chest, Triceps" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exerciseEquipment" class="form-label">
+                        Equipment (separate with commas)
+                    </label>
+                    <input type="text" id="exerciseEquipment"
+                        class="form-control"
+                        placeholder="Barbell, Bench" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exerciseImage" class="form-label">
+                        Image URL (optional)
+                    </label>
+                    <input type="url" id="exerciseImage"
+                        class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exerciseVideo" class="form-label">
+                        Video URL (optional)
+                    </label>
+                    <input type="url" id="exerciseVideo"
+                        class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Save Exercise
+                </button>
+
+                <button type="button" class="btn btn-secondary"
+                    id="cancelExerciseButton">
+                    Cancel
+                </button>
+            </form>
         </div>
 
-        <!-- Exercise Form -->
-
+        <!-- Exercise Cards Appear Here -->
+        <h4 class="mb-3">My Exercises</h4>
+        <div id="exerciseList" class="row g-3"></div>
     </main>
+
+
 
     <!-- Bootstrap JavaScript -->
     <script
@@ -129,6 +187,7 @@
 
     <!-- Your Program JavaScript -->
     <script src="../js/workout.js"></script>
+    <script src="../js/exercise.js"></script>
 
 </body>
 </html>
